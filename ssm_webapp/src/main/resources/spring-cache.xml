@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:cache="http://www.springframework.org/schema/cache" xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:task="http://www.springframework.org/schema/task" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- 缓存注解有以下三个： @Cacheable @CacheEvict @CachePut
+	@Cacheable : 第一次从数据库查询，第二次未经过代码逻辑直接从缓存中获取
+	@CacheEvict : 标记要清空缓存的方法，当这个方法被调用后，即会清空缓存。再次查询时将从代码逻辑从数据库获取数据
+	@CachePut : 确保方法被执行，同时方法的返回值也被记录到缓存中，实现缓存与数据库的同步更新。	 -->
+	<!-- 启用缓存注解功能(请将其配置在Spring主配置文件中) -->
+	<cache:annotation-driven cache-manager="cacheManager" />
+
+	<!-- 方式一：redis实现缓存 -->
+<!-- 	<bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager"> -->
+<!-- 		<property name="caches"> -->
+<!-- 			<set> -->
+<!-- 				<bean class="com.ssm.webapp.cache.RedisCache"> -->
+<!-- 					<property name="redisTemplate" ref="redisTemplate" /> -->
+<!-- 					<property name="name" value="default" /> -->
+<!-- 				</bean> -->
+<!-- 				<bean class="com.ssm.webapp.cache.RedisCache"> -->
+<!-- 					<property name="redisTemplate" ref="redisTemplate" /> -->
+<!-- 					<property name="name" value="commonCache" /> -->
+<!-- 				</bean> -->
+<!-- 			</set> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
+
+
+<!--      方式二：EhCache实现缓存 -->
+	<bean id="ehCacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" >
+		<property name="configLocation" value="classpath:ehcache.xml"></property>
+		<property name="shared" value="false"></property>
+	</bean>
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager" >
+		<property name="cacheManager" ref="ehCacheManager"></property>
+	</bean>
+
+
+
+</beans>

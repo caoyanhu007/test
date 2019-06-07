@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:cache="http://www.springframework.org/schema/cache" xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:task="http://www.springframework.org/schema/task" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+		
+	<!-- 连接池配置，这个bean是下面jedisCluster的一个属性 -->
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <!--最大连接数 -->
+        <property name="maxTotal" value="1000"/>
+        <!--最大空闲连接数 -->
+        <property name="maxIdle" value="300"/>
+        <!--每次释放连接的最大数目 -->
+        <property name="numTestsPerEvictionRun" value="1024"/>
+        <!--释放连接的扫描间隔(单位:毫秒) -->
+        <property name="timeBetweenEvictionRunsMillis" value="30000"/>
+        <!--连接最小空闲时间(单位:毫秒) -->
+        <property name="minEvictableIdleTimeMillis" value="100000"/>
+        <!--连接空闲多久后释放,当空闲时间大于该值并且空闲连接大于最大空闲连接时直接释放连接 -->
+        <property name="softMinEvictableIdleTimeMillis" value="10000"/>
+        <!--获取连接时最大等待毫秒数,如果该值小于0,则阻塞不确定的时长,默认值-1 -->
+        <property name="maxWaitMillis" value="1500"/>
+        <!--在获取连接时检查连接有效性,默认为false -->
+        <property name="testOnBorrow" value="false"/>
+        <!--在连接空闲时检查连接有效性,默认为false -->
+        <property name="testWhileIdle" value="true"/>
+        <!--连接耗尽是否阻塞,false代表抛异常,true代表阻塞直到超时,默认为true -->
+        <property name="blockWhenExhausted" value="false"/>
+	</bean>
+
+	<!-- 集群配置，使用构造方法注入的方式，想改其他可以查看构造方法 -->
+	<bean id="jedisCluster" class="redis.clients.jedis.JedisCluster">
+		<constructor-arg name="jedisClusterNode">
+			<set>
+				<!--设置集群节点 -->
+				<bean class="redis.clients.jedis.HostAndPort">  
+					<constructor-arg name="host" value="47.95.112.188"></constructor-arg>  
+					<constructor-arg name="port" value="10000"></constructor-arg>  
+				</bean>  
+				<bean class="redis.clients.jedis.HostAndPort">  
+					<constructor-arg name="host" value="47.95.112.188"></constructor-arg>  
+					<constructor-arg name="port" value="10001"></constructor-arg>  
+				</bean>  
+				<bean class="redis.clients.jedis.HostAndPort">  
+					<constructor-arg name="host" value="47.95.112.188"></constructor-arg>  
+					<constructor-arg name="port" value="10002"></constructor-arg>  
+				</bean>  
+				<bean class="redis.clients.jedis.HostAndPort">  
+					<constructor-arg name="host" value="47.95.112.188"></constructor-arg>  
+					<constructor-arg name="port" value="10003"></constructor-arg>  
+				</bean>  
+				<bean class="redis.clients.jedis.HostAndPort">  
+					<constructor-arg name="host" value="47.95.112.188"></constructor-arg>  
+					<constructor-arg name="port" value="10004"></constructor-arg>  
+				</bean>  
+				<bean class="redis.clients.jedis.HostAndPort">  
+					<constructor-arg name="host" value="47.95.112.188"></constructor-arg>  
+					<constructor-arg name="port" value="10005"></constructor-arg>  
+				</bean> 
+			</set>
+		</constructor-arg>
+		<!--设置连接超时时间 -->
+		<constructor-arg  name="connectionTimeout" value="300" />
+		<!--设置网络通信超时时间 -->
+		<constructor-arg  name="soTimeout" value="300" />
+		<!--设置最大重试次数 -->
+		<constructor-arg  name="maxAttempts" value="10" />
+		<!--设置集群访问密码 -->
+		<constructor-arg  name="password" value="caoyanhu007" />
+		<!--设置jedisPool配置 -->
+		<constructor-arg  name="poolConfig" ref="jedisPoolConfig" />
+	</bean>
+	
+	<!-- 操作集群方法一：配置JedisClusterTemplate -->
+	<bean id="jedisClusterTemplate" class="com.ssm.webapp.redis.JedisClusterTemplate">
+		<property name="jedisCluster" ref="jedisCluster" />
+	</bean>
+	
+	<!-- 操作集群方法二：配置JedisClientCluster -->
+	<bean id="jedisClientCluster" class="com.ssm.webapp.redis.JedisClientCluster">
+		<property name="jedisCluster" ref="jedisCluster" />
+	</bean>
+
+
+
+</beans>
