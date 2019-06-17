@@ -1,36 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ssm.webapp.dao.UserMapper" >
   <resultMap id="BaseResultMap" type="com.ssm.webapp.entity.User" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="username" property="username" jdbcType="VARCHAR" />
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="userName" property="username" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="reg_time" property="regTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, username, password, age
+    ID, userName, password, age, reg_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from user
-    where id = #{id,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from user
-    where id = #{id,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.ssm.webapp.entity.User"  useGeneratedKeys="true" keyProperty="id"><!-- 主键自增方法1 -->
-    insert into user ( username, password, age) values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER})
+    insert into user (ID, userName, password,age, reg_time)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},#{age,jdbcType=INTEGER}, #{regTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.ssm.webapp.entity.User" >
-  	<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer"><!-- 主键自增方法2 -->
+   	<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer"><!-- 主键自增方法2 -->
             SELECT LAST_INSERT_ID()  
     </selectKey>
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
       <if test="username != null" >
-        username,
+        userName,
       </if>
       <if test="password != null" >
         password,
@@ -38,8 +43,14 @@
       <if test="age != null" >
         age,
       </if>
+      <if test="regTime != null" >
+        reg_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
       <if test="username != null" >
         #{username,jdbcType=VARCHAR},
       </if>
@@ -49,13 +60,16 @@
       <if test="age != null" >
         #{age,jdbcType=INTEGER},
       </if>
+      <if test="regTime != null" >
+        #{regTime,jdbcType=TIMESTAMP},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.ssm.webapp.entity.User" >
     update user
     <set >
       <if test="username != null" >
-        username = #{username,jdbcType=VARCHAR},
+        userName = #{username,jdbcType=VARCHAR},
       </if>
       <if test="password != null" >
         password = #{password,jdbcType=VARCHAR},
@@ -63,14 +77,18 @@
       <if test="age != null" >
         age = #{age,jdbcType=INTEGER},
       </if>
+      <if test="regTime != null" >
+        reg_time = #{regTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.ssm.webapp.entity.User" >
     update user
-    set username = #{username,jdbcType=VARCHAR},
+    set userName = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
-      age = #{age,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
+      age = #{age,jdbcType=INTEGER},
+      reg_time = #{regTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

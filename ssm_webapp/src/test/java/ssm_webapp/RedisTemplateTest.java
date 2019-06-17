@@ -23,16 +23,8 @@ public class RedisTemplateTest {
 	    listOperations.leftPush("kkk", "val"+i);
 	}
 
-	
 	ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
 	valueOperations.set("uuu", "111");
-	
-	
-	    
-
-	
-	
-	
 
     }
 

@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ssm.webapp.dao.UserMapper;
 import com.ssm.webapp.entity.User;
+import com.ssm.webapp.exception.SystemException;
 import com.ssm.webapp.service.IUserService;
 
 @Service
@@ -23,12 +24,17 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	@Transactional
 	public int insertUser(User record) {
-		int id1 = userMapper.insert(record);
-		System.out.println("第一次插入返回："+id1);
-		System.out.println(10/0);
-		int id2 = userMapper.insert(record);
-		System.out.println("第二次插入返回："+id2);
-		return id1+id2;
+		System.out.println("User插入前ID："+record.getId());
+		int res = userMapper.insert(record);
+		System.out.println("User插入后ID："+record.getId());
+		try {
+			userMapper.insert(record);//同一对象插入两次主键冲突、失败
+		} catch (Exception e) {
+			//e.printStackTrace();
+			throw new SystemException("001","主键冲突异常");
+		}
+		System.out.println("第二次插入结束");
+		return res;
 	}
 
 	@Override

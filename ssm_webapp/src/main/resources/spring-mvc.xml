@@ -14,12 +14,12 @@
 		
 <!-- 	<aop:aspectj-autoproxy proxy-target-class="true"/> -->
 
-	<!-- 统一异常处理方式 -->
+	<!-- 异常处理器，统一异常处理方式，一个系统中只有一个异常处理器 -->
 	<bean id="exceptionHandler" class="com.ssm.webapp.exception.MyHandlerExceptionResolver"/>
 	
 	<!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
 	<context:component-scan base-package="com.ssm.webapp.controller" >
-		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/><!-- 指定扫描的注解类型 -->
 	</context:component-scan>
 	<!--避免IE执行AJAX时，返回JSON出现下载文件 -->
 	<bean id="mappingJackson2HttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">

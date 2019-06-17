@@ -17,17 +17,17 @@ public class Account {
     /*
      * @Cacheable(value=”commonCache”)，这个注释的意思是，当调用这个方法的时候， 会从一个名叫 commonCache
      * 的缓存中查询，如果没有，则执行实际的方法（即查询数据库）， 并将执行的结果存入缓存中，否则返回缓存中的对象。 这里的缓存中的 key 就是参数
-     * userName，value 就是 Account 对象。 “commonCache”缓存是在 spring*.xml 中定义的名称。
+     * userName，value 就是方法返回的 Account 对象。 “commonCache”缓存是在 spring*.xml 中定义的名称。
      */
     @Cacheable(value = "commonCache") // 使用了一个缓存名叫 commonCache
     public Map<String, Object> getAccountByName(String userName) {
-	// 方法内部实现不考虑缓存逻辑，直接实现业务
-	HashMap<String, Object> map = new HashMap<String, Object>();
-	map.put("abc", "111");
-	map.put("def", "111");
-	map.put("ghi", "111");
-	System.out.println("经过getAccountByName方法体");
-	return map;
+		// 方法内部实现不考虑缓存逻辑，直接实现业务
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("name", userName);
+		map.put("sex", "男");
+		map.put("age", 22);
+		System.out.println("经过getAccountByName方法体");
+		return map;
     }
 
     /*
@@ -36,12 +36,13 @@ public class Account {
      * 此表达式可以遍历方法的参数对象（如key="#account.getName()"），具体语法可以参考 Spring 的相关文档手册。
      */
     @CacheEvict(value = "commonCache", key = "#userName") // 清空commonCache 缓存
-    public void updateAccount(String userName) {
-	HashMap<String, Object> map = new HashMap<String, Object>();
-	map.put("abc", "222");
-	map.put("def", "222");
-	map.put("ghi", "222");
-	System.out.println("updateAccount更新方法结束");
+    public Map<String, Object> updateAccountNoSave(String userName) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("name", userName);
+		map.put("sex", "男");
+		map.put("age", 22);
+		System.out.println("updateAccountNoSave更新方法结束");
+		return map;
     }
     
     /*
@@ -49,11 +50,11 @@ public class Account {
      */
     @CachePut(value="commonCache",key="#userName")// 更新commonCache 缓存
     public Map<String, Object> updateAccountAndSave(String userName) {
-	HashMap<String, Object> map = new HashMap<String, Object>();
-	map.put("abc", "333");
-	map.put("def", "333");
-	map.put("ghi", "333");
-	System.out.println("updateAccountAndSave更新方法结束");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("name", userName);
+		map.put("sex", "男");
+		map.put("age", 22);
+		System.out.println("updateAccountAndSave更新方法结束");
         return map;
     }
 

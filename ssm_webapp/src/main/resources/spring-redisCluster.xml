@@ -17,28 +17,28 @@
 		<property name="clusterNodes">
 			<set>
 				<bean class="org.springframework.data.redis.connection.RedisClusterNode">
-					<constructor-arg name="host" value="47.95.112.188"></constructor-arg>
-					<constructor-arg name="port" value="10000"></constructor-arg>
+					<constructor-arg name="host" value="192.168.1.8"></constructor-arg>
+					<constructor-arg name="port" value="8001"></constructor-arg>
 				</bean>
 				<bean class="org.springframework.data.redis.connection.RedisClusterNode">
-					<constructor-arg name="host" value="47.95.112.188"></constructor-arg>
-					<constructor-arg name="port" value="10001"></constructor-arg>
+					<constructor-arg name="host" value="192.168.1.8"></constructor-arg>
+					<constructor-arg name="port" value="8002"></constructor-arg>
 				</bean>
 				<bean class="org.springframework.data.redis.connection.RedisClusterNode">
-					<constructor-arg name="host" value="47.95.112.188"></constructor-arg>
-					<constructor-arg name="port" value="10002"></constructor-arg>
+					<constructor-arg name="host" value="192.168.1.8"></constructor-arg>
+					<constructor-arg name="port" value="8003"></constructor-arg>
 				</bean>
 				<bean class="org.springframework.data.redis.connection.RedisClusterNode">
-					<constructor-arg name="host" value="47.95.112.188"></constructor-arg>
-					<constructor-arg name="port" value="10003"></constructor-arg>
+					<constructor-arg name="host" value="192.168.1.8"></constructor-arg>
+					<constructor-arg name="port" value="8004"></constructor-arg>
 				</bean>
 				<bean class="org.springframework.data.redis.connection.RedisClusterNode">
-					<constructor-arg name="host" value="47.95.112.188"></constructor-arg>
-					<constructor-arg name="port" value="10004"></constructor-arg>
+					<constructor-arg name="host" value="192.168.1.8"></constructor-arg>
+					<constructor-arg name="port" value="8005"></constructor-arg>
 				</bean>
 				<bean class="org.springframework.data.redis.connection.RedisClusterNode">
-					<constructor-arg name="host" value="47.95.112.188"></constructor-arg>
-					<constructor-arg name="port" value="10005"></constructor-arg>
+					<constructor-arg name="host" value="192.168.1.8"></constructor-arg>
+					<constructor-arg name="port" value="8006"></constructor-arg>
 				</bean>
 			</set>
 		</property>
@@ -56,7 +56,7 @@
 	</bean>
 	<!-- redis 访问的模版 -->
 	<bean id="stringRedisSerializer"  class="org.springframework.data.redis.serializer.StringRedisSerializer" />
-	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+	<bean id="redisTemplate"   class="org.springframework.data.redis.core.RedisTemplate">
 		<property name="connectionFactory" ref="jeidsConnectionFactory" />
 		<property name="keySerializer" ref="stringRedisSerializer" />
 		<property name="valueSerializer" ref="stringRedisSerializer" />

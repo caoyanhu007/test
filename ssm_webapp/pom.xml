@@ -22,13 +22,19 @@
 	</properties>
 	<build>
 		<plugins>
-			<!-- 配置jdk版本控制插件 -->
+			<!-- 配置jdk版本控制插件,指定maven编译的jdk版本,如果不指定,maven3默认用jdk 1.5 maven2默认用jdk1.3,
+			如果不告诉代码要使用什么样的jdk版本编译的话，就会用maven-compiler-plugin默认的jdk版本来进行处理，
+			这样就容易出现版本不匹配，以至于可能导致编译不通过的问题 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>  
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<!-- 一般而言，target与source是保持一致的，但是，有时候为了让程序能在其他版本的jdk中运行(对于低版本目标jdk，
+					源代码中不能使用低版本jdk中不支持的语法)，会存在target不同于source的情况 -->
+					<source>1.8</source><!-- 源代码使用的JDK版本 -->
+					<target>1.8</target><!-- 需要生成的目标class文件的编译版本 -->
+					<encoding>UTF-8</encoding><!-- 字符集编码 -->
 				</configuration>
 			</plugin>
 		</plugins>

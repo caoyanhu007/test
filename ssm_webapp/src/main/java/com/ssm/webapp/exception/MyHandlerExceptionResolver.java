@@ -21,15 +21,14 @@ import org.springframework.web.servlet.ModelAndView;
  * 1002 参数异常返回 
  * 1000 其他异常返回
  * 
- * @author numberONe
- * @date 2014-12-10
  */
 public class MyHandlerExceptionResolver implements HandlerExceptionResolver {
 
 	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("ex", ex);
-		if (!(request.getHeader("accept").indexOf("application/json") > -1 || (request.getHeader("X-Requested-With") != null && request.getHeader("X-Requested-With").indexOf("XMLHttpRequest") > -1))) {
+		if (!(request.getHeader("accept").indexOf("application/json") > -1 
+				|| (request.getHeader("X-Requested-With") != null && request.getHeader("X-Requested-With").indexOf("XMLHttpRequest") > -1))) {
 			// 根据不同错误转向不同页面
 			if (ex instanceof SystemException) {
 				response.setStatus(1001);// 业务异常返回 1001

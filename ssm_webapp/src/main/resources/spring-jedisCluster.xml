@@ -40,28 +40,28 @@
 			<set>
 				<!--设置集群节点 -->
 				<bean class="redis.clients.jedis.HostAndPort">  
-					<constructor-arg name="host" value="47.95.112.188"></constructor-arg>  
-					<constructor-arg name="port" value="10000"></constructor-arg>  
+					<constructor-arg name="host" value="192.168.1.8"></constructor-arg>  
+					<constructor-arg name="port" value="8001"></constructor-arg>  
 				</bean>  
 				<bean class="redis.clients.jedis.HostAndPort">  
-					<constructor-arg name="host" value="47.95.112.188"></constructor-arg>  
-					<constructor-arg name="port" value="10001"></constructor-arg>  
+					<constructor-arg name="host" value="192.168.1.8"></constructor-arg>  
+					<constructor-arg name="port" value="8002"></constructor-arg>  
 				</bean>  
 				<bean class="redis.clients.jedis.HostAndPort">  
-					<constructor-arg name="host" value="47.95.112.188"></constructor-arg>  
-					<constructor-arg name="port" value="10002"></constructor-arg>  
+					<constructor-arg name="host" value="192.168.1.8"></constructor-arg>  
+					<constructor-arg name="port" value="8003"></constructor-arg>  
 				</bean>  
 				<bean class="redis.clients.jedis.HostAndPort">  
-					<constructor-arg name="host" value="47.95.112.188"></constructor-arg>  
-					<constructor-arg name="port" value="10003"></constructor-arg>  
+					<constructor-arg name="host" value="192.168.1.8"></constructor-arg>  
+					<constructor-arg name="port" value="8004"></constructor-arg>  
 				</bean>  
 				<bean class="redis.clients.jedis.HostAndPort">  
-					<constructor-arg name="host" value="47.95.112.188"></constructor-arg>  
-					<constructor-arg name="port" value="10004"></constructor-arg>  
+					<constructor-arg name="host" value="192.168.1.8"></constructor-arg>  
+					<constructor-arg name="port" value="8005"></constructor-arg>  
 				</bean>  
 				<bean class="redis.clients.jedis.HostAndPort">  
-					<constructor-arg name="host" value="47.95.112.188"></constructor-arg>  
-					<constructor-arg name="port" value="10005"></constructor-arg>  
+					<constructor-arg name="host" value="192.168.1.8"></constructor-arg>  
+					<constructor-arg name="port" value="8005"></constructor-arg>  
 				</bean> 
 			</set>
 		</constructor-arg>

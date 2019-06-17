@@ -29,12 +29,12 @@ public class JedisClusterTest {
 	System.out.println("=========" + list.toString());
     }
 
-//    @Test
-//    public void RedisClusterTemplateTest() {
-//	Boolean boo = jedisClusterTemplate.exists("aaa");
-//	System.out.println("boo=========" + boo);
-//	Long lon = jedisClusterTemplate.hset("ooo", "aaa", "bbb");
-//	System.out.println("lon=========" + lon);
-//    }
+    @Test
+    public void RedisClusterTemplateTest() {
+	Boolean boo = jedisClusterTemplate.exists("aaa");
+	System.out.println("boo=========" + boo);
+	Long lon = jedisClusterTemplate.hset("ooo", "aaa", "bbb");
+	System.out.println("lon=========" + lon);
+    }
 
 }

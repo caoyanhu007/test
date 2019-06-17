@@ -1,6 +1,7 @@
 package com.ssm.webapp.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class User implements Serializable {
     private Integer id;
@@ -10,6 +11,8 @@ public class User implements Serializable {
     private String password;
 
     private Integer age;
+
+    private Date regTime;
 
     private static final long serialVersionUID = 1L;
 
@@ -45,6 +48,14 @@ public class User implements Serializable {
         this.age = age;
     }
 
+    public Date getRegTime() {
+        return regTime;
+    }
+
+    public void setRegTime(Date regTime) {
+        this.regTime = regTime;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -60,7 +71,8 @@ public class User implements Serializable {
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getUsername() == null ? other.getUsername() == null : this.getUsername().equals(other.getUsername()))
             && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
-            && (this.getAge() == null ? other.getAge() == null : this.getAge().equals(other.getAge()));
+            && (this.getAge() == null ? other.getAge() == null : this.getAge().equals(other.getAge()))
+            && (this.getRegTime() == null ? other.getRegTime() == null : this.getRegTime().equals(other.getRegTime()));
     }
 
     @Override
@@ -71,6 +83,7 @@ public class User implements Serializable {
         result = prime * result + ((getUsername() == null) ? 0 : getUsername().hashCode());
         result = prime * result + ((getPassword() == null) ? 0 : getPassword().hashCode());
         result = prime * result + ((getAge() == null) ? 0 : getAge().hashCode());
+        result = prime * result + ((getRegTime() == null) ? 0 : getRegTime().hashCode());
         return result;
     }
 
@@ -84,6 +97,7 @@ public class User implements Serializable {
         sb.append(", username=").append(username);
         sb.append(", password=").append(password);
         sb.append(", age=").append(age);
+        sb.append(", regTime=").append(regTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
